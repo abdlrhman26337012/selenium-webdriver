@@ -1,11 +1,9 @@
 # Use official Python base image
+# Use official Python base image
 FROM python:3.8-slim
 
 # Set working directory
 WORKDIR /app
-
-# Set environment variables to disable interactive prompts
-# ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies and Chrome dependencies
 RUN apt update && apt install -y \
@@ -13,17 +11,17 @@ RUN apt update && apt install -y \
     unzip \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && apt-get install ./google-chrome-stable_current_amd64.deb -y \
-    && wget https://storage.googleapis.com/chrome-for-testing-public/136.0.7103.59/linux64/chromedriver-linux64.zip \
+    && wget https://storage.googleapis.com/chrome-for-testing-public/147.0.7727.137/linux64/chromedriver-linux64.zip \
     && unzip chromedriver-linux64.zip \
     && mv chromedriver-linux64/chromedriver /usr/bin/chromedriver \
-    #&& chown root:root /usr/bin/chromedriver \
+    && chown root:root /usr/bin/chromedriver \
     && chmod +x /usr/bin/chromedriver \
     && apt install python3-pip -y \
     && pip install selenium --break-system-packages \
-    #&& pip install webdriver-manager --break-system-packages \
+    && pip install webdriver-manager --break-system-packages \
     && rm chromedriver-linux64.zip google-chrome-stable_current_amd64.deb
 
-# Copy selenium testcase code
+# Copy application code
 COPY firsttest.py .
 
 # Run the application
