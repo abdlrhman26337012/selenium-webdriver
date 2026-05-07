@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy test cases into container
-COPY tests/ /app/tests/
+CMD ["pytest", "tests/"]
 
 # Run pytest on all test cases
 CMD ["pytest", "tests/"]
