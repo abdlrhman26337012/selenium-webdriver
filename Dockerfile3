@@ -1,0 +1,15 @@
+# Use Python base image
+FROM python:3.9
+
+# Set working directory inside container
+WORKDIR /app
+
+# Copy dependency list and install
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy test cases into container
+COPY tests/ /app/tests/
+
+# Run pytest on all test cases
+CMD ["pytest", "tests/"]
